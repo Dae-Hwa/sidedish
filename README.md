@@ -5,6 +5,8 @@
 
 **[커밋 룰](https://www.notion.so/9d6be40a95ed409ba71b507049ff2964)**
 
+**[배포 서버](http://3.36.66.115)**
+
 ## 요구사항 분석
 - [BE](https://www.notion.so/BE-d7426f87dbed4c7c948b508c39c82867)
 - [FE](https://www.notion.so/FE-9a8a95f1f83e4522a525f22bef5c9e5d)
