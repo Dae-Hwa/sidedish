@@ -1,28 +1,29 @@
 package com.codesquad.sidedish.web.sidedish.repository;
 
-import com.codesquad.sidedish.web.sidedish.domain.Price;
-import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
-import com.codesquad.sidedish.web.sidedish.domain.SidedishBadge;
-import com.codesquad.sidedish.web.sidedish.domain.SidedishCategory;
+import com.codesquad.sidedish.web.sidedish.domain.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@DataJdbcTest
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@SpringBootTest
+@DataJdbcTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class SidedishCategoryRepositoryTest {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     SidedishCategoryRepository sidedishCategoryRepository;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     @AfterEach
     void tearDown() {
@@ -42,7 +43,37 @@ class SidedishCategoryRepositoryTest {
     void saveSidedish() {
         SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
 
-        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5);
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .build();
+
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
+
+        assertThat(result.getSidedishes()).contains(sidedish);
+    }
+
+    @Test
+    void saveImage() {
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
+
+        Image image = imageRepository.save(new Image("test", "test"));
+        Image thumbnailImage1 = imageRepository.save(new Image("test thumbnail", "test thumbnail"));
+        Image thumbnailImage2 = imageRepository.save(new Image("test thumbnail2", "test thumbnail2"));
+
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedishImage(image.sidedishImage("test"))
+                .build();
+
+        sidedish.addSidedishThumbImages(Arrays.asList(thumbnailImage1, thumbnailImage2));
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
@@ -52,16 +83,19 @@ class SidedishCategoryRepositoryTest {
     @Test
     void saveBadge() {
         SidedishBadge sidedishBadge = new SidedishBadge("뱃지");
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
 
-        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5)
-                .addSidedisheBadges(Arrays.asList(sidedishBadge));
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedisheBadges(new HashSet<>(Arrays.asList(sidedishBadge)))
+                .build();
 
-        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false)
-                .addSidedishes(Arrays.asList(sidedish)));
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
-        Sidedish result = sidedishCategory.getSidedishes().stream().findFirst().get();
-
-        assertThat(result.getSidedisheBadges()).contains(sidedishBadge);
-
+        assertThat(result.getSidedishes()).contains(sidedish);
     }
 }
