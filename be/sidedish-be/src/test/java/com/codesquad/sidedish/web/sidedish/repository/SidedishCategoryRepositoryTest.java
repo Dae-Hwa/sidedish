@@ -47,7 +47,11 @@ class SidedishCategoryRepositoryTest {
         SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
 
         Image image = imageRepository.save(new Image("test", "test"));
+        Image thumbnailImage1 = imageRepository.save(new Image("test thumbnail", "test thumbnail"));
+        Image thumbnailImage2 = imageRepository.save(new Image("test thumbnail2", "test thumbnail2"));
+
         Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5, new SidedishImage(image.getId(), "test"));
+        sidedish.addSidedishThumbImages(Arrays.asList(thumbnailImage1, thumbnailImage2));
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 

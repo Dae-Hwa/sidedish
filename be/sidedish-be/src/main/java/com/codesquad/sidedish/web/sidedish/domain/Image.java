@@ -13,6 +13,14 @@ public class Image {
         this.description = description;
     }
 
+    public SidedishImage sidedishImage(String sidedishImageName) {
+        return new SidedishImage(id, sidedishImageName);
+    }
+
+    public SidedishThumbImage sidedishThumbImage() {
+        return new SidedishThumbImage(id);
+    }
+
     public Long getId() {
         return id;
     }
