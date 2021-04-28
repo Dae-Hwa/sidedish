@@ -16,10 +16,10 @@ public class Sidedish {
     private String name;
     private String description;
 
-    @Embedded(onEmpty = USE_NULL, prefix="NORMAL_")
+    @Embedded(onEmpty = USE_NULL, prefix = "NORMAL_")
     private Price normalPrice;
 
-    @Embedded(onEmpty = USE_NULL, prefix="SALE_")
+    @Embedded(onEmpty = USE_NULL, prefix = "SALE_")
     private Price salePrice;
     private int stock;
 
