@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `sidedish`.`sidedish_category`
 (
     `id`      INT         NOT NULL AUTO_INCREMENT,
     `name`    VARCHAR(45) NULL,
-    `is_best` TINYINT     NULL,
+    `is_best` BOOLEAN     NULL,
     PRIMARY KEY (`id`)
 );
 
@@ -176,13 +176,13 @@ DROP TABLE IF EXISTS `sidedish`.`sidedish_delivery_day`;
 CREATE TABLE IF NOT EXISTS `sidedish`.`sidedish_delivery_day`
 (
     `sidedish_delivery_id` INT     NOT NULL,
-    `monday`               TINYINT NOT NULL DEFAULT 0,
-    `tuesday`              TINYINT NOT NULL DEFAULT 0,
-    `wednesday`            TINYINT NOT NULL DEFAULT 0,
-    `thursday`             TINYINT NOT NULL DEFAULT 0,
-    `friday`               TINYINT NOT NULL DEFAULT 0,
-    `saturday`             TINYINT NOT NULL DEFAULT 0,
-    `sunday`               TINYINT NOT NULL DEFAULT 0,
+    `monday`               BOOLEAN NOT NULL DEFAULT 0,
+    `tuesday`              BOOLEAN NOT NULL DEFAULT 0,
+    `wednesday`            BOOLEAN NOT NULL DEFAULT 0,
+    `thursday`             BOOLEAN NOT NULL DEFAULT 0,
+    `friday`               BOOLEAN NOT NULL DEFAULT 0,
+    `saturday`             BOOLEAN NOT NULL DEFAULT 0,
+    `sunday`               BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (`sidedish_delivery_id`),
     INDEX `fk_sidedish_delivery_day_sidedish_delivery1_idx` (`sidedish_delivery_id` ASC),
     CONSTRAINT `fk_sidedish_delivery_day_sidedish_delivery1`
