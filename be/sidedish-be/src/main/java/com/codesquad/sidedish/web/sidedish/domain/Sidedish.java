@@ -2,6 +2,11 @@ package com.codesquad.sidedish.web.sidedish.domain;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Embedded;
+import org.springframework.data.relational.core.mapping.MappedCollection;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.springframework.data.relational.core.mapping.Embedded.OnEmpty.USE_NULL;
 
@@ -18,12 +23,19 @@ public class Sidedish {
     private Price salePrice;
     private int stock;
 
+    @MappedCollection(idColumn = "SIDEDISH_ID")
+    private Set<SidedishBadge> sidedisheBadges = new HashSet<>();
     public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock) {
         this.name = name;
         this.description = description;
         this.normalPrice = normalPrice;
         this.salePrice = salePrice;
         this.stock = stock;
+    }
+
+    public Sidedish addSidedisheBadges(Collection<SidedishBadge> sidedisheBadges) {
+        this.sidedisheBadges.addAll(sidedisheBadges);
+        return this;
     }
 
     public Long getId() {
@@ -48,6 +60,10 @@ public class Sidedish {
 
     public int getStock() {
         return stock;
+    }
+
+    public Set<SidedishBadge> getSidedisheBadges() {
+        return sidedisheBadges;
     }
 
     @Override

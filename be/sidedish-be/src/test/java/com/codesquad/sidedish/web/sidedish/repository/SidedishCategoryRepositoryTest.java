@@ -2,6 +2,7 @@ package com.codesquad.sidedish.web.sidedish.repository;
 
 import com.codesquad.sidedish.web.sidedish.domain.Price;
 import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
+import com.codesquad.sidedish.web.sidedish.domain.SidedishBadge;
 import com.codesquad.sidedish.web.sidedish.domain.SidedishCategory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -46,5 +47,21 @@ class SidedishCategoryRepositoryTest {
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
         assertThat(result.getSidedishes()).contains(sidedish);
+    }
+
+    @Test
+    void saveBadge() {
+        SidedishBadge sidedishBadge = new SidedishBadge("뱃지");
+
+        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5)
+                .addSidedisheBadges(Arrays.asList(sidedishBadge));
+
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false)
+                .addSidedishes(Arrays.asList(sidedish)));
+
+        Sidedish result = sidedishCategory.getSidedishes().stream().findFirst().get();
+
+        assertThat(result.getSidedisheBadges()).contains(sidedishBadge);
+
     }
 }
