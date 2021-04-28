@@ -10,11 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import org.springframework.data.relational.core.mapping.MappedCollection;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 import static org.springframework.data.relational.core.mapping.Embedded.OnEmpty.USE_NULL;
 
@@ -39,6 +34,7 @@ public class Sidedish {
 
     @MappedCollection(idColumn = "SIDEDISH_ID")
     private Set<SidedishBadge> sidedisheBadges = new HashSet<>();
+
     public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock, SidedishImage sidedishImage) {
         this.name = name;
         this.description = description;
@@ -46,6 +42,10 @@ public class Sidedish {
         this.salePrice = salePrice;
         this.stock = stock;
         this.sidedishImage = sidedishImage;
+    }
+
+    public static SidedishBuilder builder() {
+        return SidedishBuilder.create();
     }
 
     public Sidedish addSidedishThumbImages(Collection<Image> images) {
@@ -94,6 +94,78 @@ public class Sidedish {
         return sidedishImage;
     }
 
+    public static final class SidedishBuilder {
+        private Long id;
+        private String name;
+        private String description;
+        private Price normalPrice;
+        private Price salePrice;
+        private int stock;
+        private SidedishImage sidedishImage;
+        private Set<SidedishThumbImage> sidedishThumbImages = new HashSet<>();
+        private Set<SidedishBadge> sidedisheBadges = new HashSet<>();
+
+        private SidedishBuilder() {
+        }
+
+        public static SidedishBuilder create() {
+            return new SidedishBuilder();
+        }
+
+        public SidedishBuilder id(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public SidedishBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public SidedishBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public SidedishBuilder normalPrice(Price normalPrice) {
+            this.normalPrice = normalPrice;
+            return this;
+        }
+
+        public SidedishBuilder salePrice(Price salePrice) {
+            this.salePrice = salePrice;
+            return this;
+        }
+
+        public SidedishBuilder stock(int stock) {
+            this.stock = stock;
+            return this;
+        }
+
+        public SidedishBuilder sidedishImage(SidedishImage sidedishImage) {
+            this.sidedishImage = sidedishImage;
+            return this;
+        }
+
+        public SidedishBuilder sidedishThumbImages(Set<SidedishThumbImage> sidedishThumbImages) {
+            this.sidedishThumbImages = sidedishThumbImages;
+            return this;
+        }
+
+        public SidedishBuilder sidedisheBadges(Set<SidedishBadge> sidedisheBadges) {
+            this.sidedisheBadges = sidedisheBadges;
+            return this;
+        }
+
+        public Sidedish build() {
+            Sidedish sidedish = new Sidedish(name, description, normalPrice, salePrice, stock, sidedishImage);
+            sidedish.id = this.id;
+            sidedish.sidedishThumbImages = this.sidedishThumbImages;
+            sidedish.sidedisheBadges = this.sidedisheBadges;
+            return sidedish;
+        }
+    }
+
     @Override
     public String toString() {
         return "Sidedish{" +
@@ -105,6 +177,7 @@ public class Sidedish {
                 ", stock=" + stock +
                 ", sidedishImage=" + sidedishImage +
                 ", sidedishThumbImages=" + sidedishThumbImages +
+                ", sidedisheBadges=" + sidedisheBadges +
                 '}';
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -42,15 +43,13 @@ class SidedishCategoryRepositoryTest {
     void saveSidedish() {
         SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
 
-        Image image = imageRepository.save(new Image("test", "test"));
-        Image thumbnailImage1 = imageRepository.save(new Image("test thumbnail", "test thumbnail"));
-        Image thumbnailImage2 = imageRepository.save(new Image("test thumbnail2", "test thumbnail2"));
-
-        SidedishBadge sidedishBadge = new SidedishBadge("뱃지");
-
-        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5, new SidedishImage(image.getId(), "test"));
-        sidedish.addSidedishThumbImages(Arrays.asList(thumbnailImage1, thumbnailImage2));
-        sidedish.addSidedisheBadges(Arrays.asList(sidedishBadge));
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .build();
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
@@ -65,7 +64,14 @@ class SidedishCategoryRepositoryTest {
         Image thumbnailImage1 = imageRepository.save(new Image("test thumbnail", "test thumbnail"));
         Image thumbnailImage2 = imageRepository.save(new Image("test thumbnail2", "test thumbnail2"));
 
-        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5, new SidedishImage(image.getId(), "test"));
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedishImage(image.sidedishImage("test"))
+                .build();
 
         sidedish.addSidedishThumbImages(Arrays.asList(thumbnailImage1, thumbnailImage2));
 
@@ -79,8 +85,14 @@ class SidedishCategoryRepositoryTest {
         SidedishBadge sidedishBadge = new SidedishBadge("뱃지");
         SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
 
-        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5, null)
-                .addSidedisheBadges(Arrays.asList(sidedishBadge));
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedisheBadges(new HashSet<>(Arrays.asList(sidedishBadge)))
+                .build();
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
