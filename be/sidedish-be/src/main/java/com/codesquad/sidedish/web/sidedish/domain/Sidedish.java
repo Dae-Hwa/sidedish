@@ -37,10 +37,9 @@ public class Sidedish {
     @MappedCollection(idColumn = "SIDEDISH_ID")
     private Set<SidedishThumbImage> sidedishThumbImages = new HashSet<>();
 
-    public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock, SidedishImage sidedishImage) {
     @MappedCollection(idColumn = "SIDEDISH_ID")
     private Set<SidedishBadge> sidedisheBadges = new HashSet<>();
-    public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock) {
+    public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock, SidedishImage sidedishImage) {
         this.name = name;
         this.description = description;
         this.normalPrice = normalPrice;
