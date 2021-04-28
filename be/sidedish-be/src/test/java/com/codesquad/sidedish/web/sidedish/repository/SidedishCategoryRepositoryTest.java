@@ -1,5 +1,6 @@
 package com.codesquad.sidedish.web.sidedish.repository;
 
+import com.codesquad.sidedish.web.sidedish.domain.Price;
 import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
 import com.codesquad.sidedish.web.sidedish.domain.SidedishCategory;
 import org.junit.jupiter.api.AfterEach;
@@ -40,7 +41,7 @@ class SidedishCategoryRepositoryTest {
     void saveSidedish() {
         SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
 
-        Sidedish sidedish = new Sidedish("반찬1", "설명", 100, 70, 5);
+        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5);
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 

@@ -1,17 +1,24 @@
 package com.codesquad.sidedish.web.sidedish.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Embedded;
+
+import static org.springframework.data.relational.core.mapping.Embedded.OnEmpty.USE_NULL;
 
 public class Sidedish {
     @Id
     private Long id;
     private String name;
     private String description;
-    private long normalPrice;
-    private long salePrice;
+
+    @Embedded(onEmpty = USE_NULL, prefix="NORMAL_")
+    private Price normalPrice;
+
+    @Embedded(onEmpty = USE_NULL, prefix="SALE_")
+    private Price salePrice;
     private int stock;
 
-    public Sidedish(String name, String description, long normalPrice, long salePrice, int stock) {
+    public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock) {
         this.name = name;
         this.description = description;
         this.normalPrice = normalPrice;
@@ -31,11 +38,11 @@ public class Sidedish {
         return description;
     }
 
-    public long getNormalPrice() {
+    public Price getNormalPrice() {
         return normalPrice;
     }
 
-    public long getSalePrice() {
+    public Price getSalePrice() {
         return salePrice;
     }
 

@@ -1,5 +1,7 @@
 package com.codesquad.sidedish.web.sidedish.domain;
 
+import org.springframework.data.annotation.PersistenceConstructor;
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 
@@ -8,15 +10,20 @@ public class Price {
 
     private final long price;
 
+    @PersistenceConstructor
+    public Price(long price) {
+        this.price = price;
+    }
+
     public Price(String price) {
-        this.price = parsePrice(price);
+        this(parsePrice(price));
     }
 
     public String getFormattedPrice() {
         return NumberFormat.getInstance().format(price) + POSTFIX;
     }
 
-    private long parsePrice(String price) {
+    private static long parsePrice(String price) {
         try {
             return NumberFormat.getInstance().parse(price).longValue();
         } catch (ParseException e) {
