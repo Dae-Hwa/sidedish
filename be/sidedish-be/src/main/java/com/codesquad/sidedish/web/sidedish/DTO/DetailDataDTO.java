@@ -1,6 +1,6 @@
 package com.codesquad.sidedish.web.sidedish.DTO;
 
-import com.codesquad.sidedish.web.sidedish.Price;
+import com.codesquad.sidedish.web.sidedish.domain.Price;
 
 import java.util.Collections;
 import java.util.List;
