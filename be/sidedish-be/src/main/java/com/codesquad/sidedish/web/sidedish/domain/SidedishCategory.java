@@ -3,6 +3,7 @@ package com.codesquad.sidedish.web.sidedish.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,12 +20,8 @@ public class SidedishCategory {
         this.isBest = isBest;
     }
 
-    public SidedishCategory addSidedishes(Sidedish... foods) {
-        for (Sidedish f : foods) {
-            this.sidedishes.add(f);
-        }
-
-//        sidedishes.addAll(Arrays.asList(foods));
+    public SidedishCategory addSidedishes(Collection<Sidedish> sidedishes) {
+        this.sidedishes.addAll(sidedishes);
         return this;
     }
 

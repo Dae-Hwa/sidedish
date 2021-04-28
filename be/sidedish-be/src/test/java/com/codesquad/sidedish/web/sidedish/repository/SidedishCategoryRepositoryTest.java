@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 //@DataJdbcTest
@@ -40,7 +42,7 @@ class SidedishCategoryRepositoryTest {
 
         Sidedish sidedish = new Sidedish("반찬1", "설명", 100, 70, 5);
 
-        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(sidedish));
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
         assertThat(result.getSidedishes()).contains(sidedish);
     }
