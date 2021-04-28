@@ -1,6 +1,7 @@
 package com.codesquad.sidedish.web.sidedish.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
@@ -23,6 +24,10 @@ public class Sidedish {
     private Price salePrice;
     private int stock;
 
+    @Column("SIDEDISH_ID")
+    private SidedishImage sidedishImage;
+
+    public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock, SidedishImage sidedishImage) {
     @MappedCollection(idColumn = "SIDEDISH_ID")
     private Set<SidedishBadge> sidedisheBadges = new HashSet<>();
     public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock) {
@@ -31,6 +36,7 @@ public class Sidedish {
         this.normalPrice = normalPrice;
         this.salePrice = salePrice;
         this.stock = stock;
+        this.sidedishImage = sidedishImage;
     }
 
     public Sidedish addSidedisheBadges(Collection<SidedishBadge> sidedisheBadges) {
@@ -64,6 +70,10 @@ public class Sidedish {
 
     public Set<SidedishBadge> getSidedisheBadges() {
         return sidedisheBadges;
+    }
+
+    public SidedishImage getSidedishImage() {
+        return sidedishImage;
     }
 
     @Override

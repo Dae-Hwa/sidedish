@@ -1,5 +1,6 @@
 package com.codesquad.sidedish.web.sidedish.repository;
 
+import com.codesquad.sidedish.web.sidedish.domain.*;
 import com.codesquad.sidedish.web.sidedish.domain.Price;
 import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
 import com.codesquad.sidedish.web.sidedish.domain.SidedishBadge;
@@ -9,20 +10,23 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-//@DataJdbcTest
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@SpringBootTest
+@DataJdbcTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class SidedishCategoryRepositoryTest {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     SidedishCategoryRepository sidedishCategoryRepository;
+
+    @Autowired
+    ImageRepository imageRepository;
 
     @AfterEach
     void tearDown() {
@@ -42,7 +46,8 @@ class SidedishCategoryRepositoryTest {
     void saveSidedish() {
         SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
 
-        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5);
+        Image image = imageRepository.save(new Image("test", "test"));
+        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5, new SidedishImage(image.getId(), "test"));
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
