@@ -1,10 +1,6 @@
 package com.codesquad.sidedish.web.sidedish.repository;
 
 import com.codesquad.sidedish.web.sidedish.domain.*;
-import com.codesquad.sidedish.web.sidedish.domain.Price;
-import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
-import com.codesquad.sidedish.web.sidedish.domain.SidedishBadge;
-import com.codesquad.sidedish.web.sidedish.domain.SidedishCategory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -50,7 +46,27 @@ class SidedishCategoryRepositoryTest {
         Image thumbnailImage1 = imageRepository.save(new Image("test thumbnail", "test thumbnail"));
         Image thumbnailImage2 = imageRepository.save(new Image("test thumbnail2", "test thumbnail2"));
 
+        SidedishBadge sidedishBadge = new SidedishBadge("뱃지");
+
         Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5, new SidedishImage(image.getId(), "test"));
+        sidedish.addSidedishThumbImages(Arrays.asList(thumbnailImage1, thumbnailImage2));
+        sidedish.addSidedisheBadges(Arrays.asList(sidedishBadge));
+
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
+
+        assertThat(result.getSidedishes()).contains(sidedish);
+    }
+
+    @Test
+    void saveImage() {
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
+
+        Image image = imageRepository.save(new Image("test", "test"));
+        Image thumbnailImage1 = imageRepository.save(new Image("test thumbnail", "test thumbnail"));
+        Image thumbnailImage2 = imageRepository.save(new Image("test thumbnail2", "test thumbnail2"));
+
+        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5, new SidedishImage(image.getId(), "test"));
+
         sidedish.addSidedishThumbImages(Arrays.asList(thumbnailImage1, thumbnailImage2));
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
@@ -61,16 +77,13 @@ class SidedishCategoryRepositoryTest {
     @Test
     void saveBadge() {
         SidedishBadge sidedishBadge = new SidedishBadge("뱃지");
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
 
-        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5)
+        Sidedish sidedish = new Sidedish("반찬1", "설명", new Price(100L), new Price(70L), 5, null)
                 .addSidedisheBadges(Arrays.asList(sidedishBadge));
 
-        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false)
-                .addSidedishes(Arrays.asList(sidedish)));
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
-        Sidedish result = sidedishCategory.getSidedishes().stream().findFirst().get();
-
-        assertThat(result.getSidedisheBadges()).contains(sidedishBadge);
-
+        assertThat(result.getSidedishes()).contains(sidedish);
     }
 }
