@@ -27,22 +27,6 @@ public class Sidedish {
 
     private int stock;
 
-    @Override
-    public String toString() {
-        return "Sidedish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", normalPrice=" + normalPrice +
-                ", salePrice=" + salePrice +
-                ", stock=" + stock +
-                ", sidedishDelivery=" + sidedishDelivery +
-                ", sidedishImage=" + sidedishImage +
-                ", sidedishThumbImages=" + sidedishThumbImages +
-                ", sidedisheBadges=" + sidedisheBadges +
-                '}';
-    }
-
     @Column("SIDEDISH_ID")
     private SidedishDelivery sidedishDelivery;
 
@@ -123,6 +107,22 @@ public class Sidedish {
         return sidedisheBadges;
     }
 
+    @Override
+    public String toString() {
+        return "Sidedish{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", normalPrice=" + normalPrice +
+                ", salePrice=" + salePrice +
+                ", stock=" + stock +
+                ", sidedishDelivery=" + sidedishDelivery +
+                ", sidedishImage=" + sidedishImage +
+                ", sidedishThumbImages=" + sidedishThumbImages +
+                ", sidedisheBadges=" + sidedisheBadges +
+                '}';
+    }
+
     public static final class SidedishBuilder {
         private Long id;
         private String name;
@@ -200,5 +200,4 @@ public class Sidedish {
             return sidedish;
         }
     }
-
 }
