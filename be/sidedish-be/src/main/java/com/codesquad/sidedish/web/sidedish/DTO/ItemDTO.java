@@ -1,11 +1,15 @@
 package com.codesquad.sidedish.web.sidedish.DTO;
 
-import com.codesquad.sidedish.web.sidedish.domain.Price;
+import com.codesquad.sidedish.web.sidedish.domain.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ItemDTO {
+    private static final int DEFAULT_STOCK = 5;
+
     private String detailHash;
     private String image;
     private String alt;
@@ -29,6 +33,47 @@ public class ItemDTO {
         this.nPrice = nPrice;
         this.sPrice = sPrice;
         this.badge = badge;
+    }
+
+    public static ItemDTO of(Sidedish sidedish, Map<Long, Image> images) {
+        ItemDTOBuilder builder = ItemDTO.builder()
+                .detailHash(sidedish.getId().toString())
+                .deliveryType(sidedish.getSidedishDelivery()
+                        .getSidedishDeliveryTypes().stream()
+                        .map(SidedishDeliveryType::getName)
+                        .collect(Collectors.toList())
+                ).title(sidedish.getName())
+                .description(sidedish.getDescription())
+                .nPrice(sidedish.getNormalPrice())
+                .sPrice(sidedish.getSalePrice())
+                .badge(sidedish.getSidedisheBadges().stream()
+                        .map(SidedishBadge::getName)
+                        .collect(Collectors.toList())
+                );
+
+        if (sidedish.getSidedishImage() != null && images.containsKey(sidedish.getSidedishImage().getImageId())) {
+            builder.image(images.get(sidedish.getSidedishImage().getImageId()).getUrl())
+                    .alt(sidedish.getSidedishImage().getName());
+        }
+
+        return builder.build();
+    }
+
+    public Sidedish sidedish() {
+        return Sidedish.builder()
+                .name(title)
+                .description(description)
+                .normalPrice(nPrice)
+                .salePrice(sPrice)
+                .stock(DEFAULT_STOCK)
+                .sidedishDelivery(
+                        new SidedishDelivery(
+                                new Price(2500L),
+                                new SidedishDeliveryDay(true, true, true, true, true, true, false)
+                        ).addSidedishDeliveryTypes(deliveryType.stream().map(SidedishDeliveryType::new).collect(Collectors.toList()))
+                )
+                .sidedisheBadges(badge.stream().map(SidedishBadge::new).collect(Collectors.toSet()))
+                .build();
     }
 
     public static ItemDTOBuilder builder() {

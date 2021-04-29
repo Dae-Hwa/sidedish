@@ -45,8 +45,8 @@ public class Sidedish {
         this.normalPrice = normalPrice;
         this.salePrice = salePrice;
         this.stock = stock;
-        this.sidedishDelivery = sidedishDelivery;
-        this.sidedishImage = sidedishImage;
+        this.sidedishDelivery = sidedishDelivery == null ? SidedishDelivery.empty() : sidedishDelivery;
+        this.sidedishImage =  sidedishImage;
     }
 
     public static SidedishBuilder builder() {

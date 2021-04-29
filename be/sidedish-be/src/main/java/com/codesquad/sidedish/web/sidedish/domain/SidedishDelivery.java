@@ -5,6 +5,7 @@ import org.springframework.data.relational.core.mapping.Embedded;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,6 +24,11 @@ public class SidedishDelivery {
     public SidedishDelivery(Price deliveryPrice, SidedishDeliveryDay sidedishDeliveryDay) {
         this.deliveryPrice = deliveryPrice;
         this.sidedishDeliveryDay = sidedishDeliveryDay;
+    }
+
+    public static SidedishDelivery empty() {
+        return new SidedishDelivery(new Price(0L), new SidedishDeliveryDay(false, false, false, false, false, false, false))
+                .addSidedishDeliveryTypes(Collections.emptyList());
     }
 
     public SidedishDelivery addSidedishDeliveryTypes(Collection<SidedishDeliveryType> sidedishDeliveryTypes) {
