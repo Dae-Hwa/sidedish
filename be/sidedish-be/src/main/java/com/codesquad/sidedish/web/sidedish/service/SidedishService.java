@@ -1,6 +1,8 @@
 package com.codesquad.sidedish.web.sidedish.service;
 
+import com.codesquad.sidedish.web.sidedish.DTO.DetailDTO;
 import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
+import com.codesquad.sidedish.web.sidedish.domain.Image;
 import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
 import com.codesquad.sidedish.web.sidedish.repository.SidedishRepository;
 import org.springframework.stereotype.Service;
@@ -27,7 +29,15 @@ public class SidedishService {
         }
 
         return sidedishes
-                .stream().map(s -> SidedishDTO.of(s, imageService.readImages()))
+                .stream().map(s -> SidedishDTO.of(s, imageService.readImagesAsMap()))
                 .collect(Collectors.toList());
+    }
+
+    public DetailDTO readOne(Long id) {
+        Sidedish sidedish = sidedishRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+        Image topImage = imageService.readImagesAsMap().getOrDefault(sidedish.imageId(), null);
+        List<Image> thumbImages = imageService.readImage();
+
+        return DetailDTO.of(sidedish, topImage, thumbImages);
     }
 }

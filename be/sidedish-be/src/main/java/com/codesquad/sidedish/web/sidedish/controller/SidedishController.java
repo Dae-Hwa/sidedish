@@ -1,10 +1,12 @@
 package com.codesquad.sidedish.web.sidedish.controller;
 
+import com.codesquad.sidedish.web.sidedish.DTO.DetailDTO;
 import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
 import com.codesquad.sidedish.web.sidedish.DTO.BestSidedishDTO;
 import com.codesquad.sidedish.web.sidedish.service.SidedishCategoryService;
 import com.codesquad.sidedish.web.sidedish.service.SidedishService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -47,5 +49,10 @@ public class SidedishController {
     @GetMapping("/recommend")
     public List<SidedishDTO> readRecommendedSideSidedishes() {
         return sidedishService.getRecommendedSidedishList();
+    }
+
+    @GetMapping("/detail/{id}")
+    public DetailDTO readOne(@PathVariable Long id) {
+        return sidedishService.readOne(id);
     }
 }

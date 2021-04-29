@@ -21,13 +21,13 @@ public class SidedishCategoryService {
 
     public List<BestSidedishDTO> readBestCategories() {
         return sidedishCategoryRepository.findByIsBestTrue().stream()
-                .map(sidedishCategory -> BestSidedishDTO.of(sidedishCategory, imageService.readImages()))
+                .map(sidedishCategory -> BestSidedishDTO.of(sidedishCategory, imageService.readImagesAsMap()))
                 .collect(Collectors.toList());
     }
 
     public List<SidedishDTO> readSideSidedishesBy(String categoryName) {
         return readBy(categoryName).sidedishStream()
-                .map(sidedish -> SidedishDTO.of(sidedish, imageService.readImages()))
+                .map(sidedish -> SidedishDTO.of(sidedish, imageService.readImagesAsMap()))
                 .collect(Collectors.toList());
     }
 
