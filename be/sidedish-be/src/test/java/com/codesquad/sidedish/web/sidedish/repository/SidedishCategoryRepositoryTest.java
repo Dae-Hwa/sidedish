@@ -1,6 +1,8 @@
 package com.codesquad.sidedish.web.sidedish.repository;
 
 import com.codesquad.sidedish.web.sidedish.domain.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -26,8 +28,10 @@ class SidedishCategoryRepositoryTest {
     ImageRepository imageRepository;
 
     @AfterEach
-    void tearDown() {
-        logger.debug("{}", sidedishCategoryRepository.findAll());
+    void tearDown() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        logger.debug("\n{}", objectMapper.writerWithDefaultPrettyPrinter()
+                .writeValueAsString(sidedishCategoryRepository.findAll()));
     }
 
     @Test
