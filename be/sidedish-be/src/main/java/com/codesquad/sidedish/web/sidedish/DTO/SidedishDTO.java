@@ -1,7 +1,12 @@
 package com.codesquad.sidedish.web.sidedish.DTO;
 
+import com.codesquad.sidedish.web.sidedish.domain.Image;
+import com.codesquad.sidedish.web.sidedish.domain.SidedishCategory;
+
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class SidedishDTO {
     private long categoryId;
@@ -16,6 +21,28 @@ public class SidedishDTO {
         this.name = name;
         this.items = items;
     }
+
+    public static SidedishDTO of(SidedishCategory sidedishCategory, Map<Long, Image> images) {
+        return SidedishDTO.builder()
+                .categoryId(sidedishCategory.getId())
+                .name(sidedishCategory.getName())
+                .items(sidedishCategory.getSidedishes().stream()
+                        .map(sidedish -> ItemDTO.of(sidedish, images))
+                        .collect(Collectors.toList())
+                )
+                .build();
+    }
+
+    public SidedishCategory sidedishCategory() {
+        return new SidedishCategory(name, false)
+                .addSidedishes(items.stream().map(ItemDTO::sidedish).collect(Collectors.toList()));
+    }
+
+    public SidedishCategory sidedishBestCategory() {
+        return new SidedishCategory(name, true)
+                .addSidedishes(items.stream().map(ItemDTO::sidedish).collect(Collectors.toList()));
+    }
+
 
     public static SidedishDTOBuilder builder() {
         return SidedishDTOBuilder.create();

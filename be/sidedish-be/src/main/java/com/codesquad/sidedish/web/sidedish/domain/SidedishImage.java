@@ -1,15 +1,22 @@
 package com.codesquad.sidedish.web.sidedish.domain;
 
+import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.relational.core.mapping.Table;
+
 public class SidedishImage {
-    private long imageId;
+    private Long imageId;
     private String name;
 
-    public SidedishImage(long imageId, String name) {
+    public SidedishImage(Long imageId, String name) {
         this.imageId = imageId;
         this.name = name;
     }
 
-    public long getImageId() {
+    public static SidedishImage empty() {
+        return new SidedishImage(null, "");
+    }
+
+    public Long getImageId() {
         return imageId;
     }
 

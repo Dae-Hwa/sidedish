@@ -11,7 +11,7 @@ public class SidedishCategory {
     @Id
     private Long id;
     private String name;
-    private Boolean isBest;
+    private boolean isBest;
     @MappedCollection(idColumn = "SIDEDISH_CATEGORY_ID")
     private Set<Sidedish> sidedishes = new HashSet<>();
 
@@ -33,7 +33,7 @@ public class SidedishCategory {
         return name;
     }
 
-    public Boolean isBest() {
+    public boolean isBest() {
         return isBest;
     }
 
