@@ -27,6 +27,22 @@ public class Sidedish {
 
     private int stock;
 
+    @Override
+    public String toString() {
+        return "Sidedish{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", normalPrice=" + normalPrice +
+                ", salePrice=" + salePrice +
+                ", stock=" + stock +
+                ", sidedishDelivery=" + sidedishDelivery +
+                ", sidedishImage=" + sidedishImage +
+                ", sidedishThumbImages=" + sidedishThumbImages +
+                ", sidedisheBadges=" + sidedisheBadges +
+                '}';
+    }
+
     @Column("SIDEDISH_ID")
     private SidedishDelivery sidedishDelivery;
 
@@ -91,12 +107,20 @@ public class Sidedish {
         return stock;
     }
 
-    public Set<SidedishBadge> getSidedisheBadges() {
-        return sidedisheBadges;
+    public SidedishDelivery getSidedishDelivery() {
+        return sidedishDelivery;
     }
 
     public SidedishImage getSidedishImage() {
         return sidedishImage;
+    }
+
+    public Set<SidedishThumbImage> getSidedishThumbImages() {
+        return sidedishThumbImages;
+    }
+
+    public Set<SidedishBadge> getSidedisheBadges() {
+        return sidedisheBadges;
     }
 
     public static final class SidedishBuilder {
@@ -177,18 +201,4 @@ public class Sidedish {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Sidedish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", normalPrice=" + normalPrice +
-                ", salePrice=" + salePrice +
-                ", stock=" + stock +
-                ", sidedishImage=" + sidedishImage +
-                ", sidedishThumbImages=" + sidedishThumbImages +
-                ", sidedisheBadges=" + sidedisheBadges +
-                '}';
-    }
 }

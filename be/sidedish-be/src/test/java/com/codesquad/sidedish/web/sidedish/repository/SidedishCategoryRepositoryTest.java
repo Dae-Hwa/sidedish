@@ -113,7 +113,49 @@ class SidedishCategoryRepositoryTest {
                 .normalPrice(new Price(100L))
                 .salePrice(new Price(70L))
                 .stock(5)
-                .sidedishDelivery(new SidedishDelivery(new Price(2500L)))
+                .sidedishDelivery(new SidedishDelivery(new Price(2500L), null))
+                .build();
+
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
+
+        assertThat(result.getSidedishes()).contains(sidedish);
+    }
+
+    @Test
+    void saveDeliveryDay() {
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
+
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedishDelivery(new SidedishDelivery(
+                        new Price(2500L),
+                        new SidedishDeliveryDay(true, true, true, true, true, true, false)
+                ))
+                .build();
+
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
+
+        assertThat(result.getSidedishes()).contains(sidedish);
+    }
+
+    @Test
+    void saveDeliveryType() {
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
+
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedishDelivery(
+                        new SidedishDelivery(new Price(2500L), null)
+                                .addSidedishDeliveryTypes(Arrays.asList(new SidedishDeliveryType("전국배송")))
+                )
                 .build();
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
