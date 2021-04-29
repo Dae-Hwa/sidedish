@@ -1,6 +1,8 @@
 package com.codesquad.sidedish.web.sidedish.domain;
 
 public class SidedishDeliveryDay {
+    public static final SidedishDeliveryDay MONDAY_TO_SATURDAY = new SidedishDeliveryDay(true, true, true, true, true, true, false);
+
     private boolean monday;
     private boolean tuesday;
     private boolean wednesday;

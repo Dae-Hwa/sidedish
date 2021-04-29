@@ -38,8 +38,7 @@ public class ItemDTO {
     public static ItemDTO of(Sidedish sidedish, Map<Long, Image> images) {
         ItemDTOBuilder builder = ItemDTO.builder()
                 .detailHash(sidedish.getId().toString())
-                .deliveryType(sidedish.getSidedishDelivery()
-                        .getSidedishDeliveryTypes().stream()
+                .deliveryType(sidedish.sidedishDeliveryTypes().stream()
                         .map(SidedishDeliveryType::getName)
                         .collect(Collectors.toList())
                 ).title(sidedish.getName())
@@ -51,9 +50,9 @@ public class ItemDTO {
                         .collect(Collectors.toList())
                 );
 
-        if (sidedish.getSidedishImage() != null && images.containsKey(sidedish.getSidedishImage().getImageId())) {
-            builder.image(images.get(sidedish.getSidedishImage().getImageId()).getUrl())
-                    .alt(sidedish.getSidedishImage().getName());
+        if (sidedish.getSidedishImage() != null && images.containsKey(sidedish.imageId())) {
+            builder.image(images.get(sidedish.imageId()).getUrl())
+                    .alt(sidedish.imageName());
         }
 
         return builder.build();
@@ -67,10 +66,12 @@ public class ItemDTO {
                 .salePrice(sPrice)
                 .stock(DEFAULT_STOCK)
                 .sidedishDelivery(
-                        new SidedishDelivery(
-                                new Price(2500L),
-                                new SidedishDeliveryDay(true, true, true, true, true, true, false)
-                        ).addSidedishDeliveryTypes(deliveryType.stream().map(SidedishDeliveryType::new).collect(Collectors.toList()))
+                        SidedishDelivery
+                                .builder()
+                                .deliveryPrice(Price.DEFAULT_DELIVERY_PRICE)
+                                .sidedishDeliveryDay(SidedishDeliveryDay.MONDAY_TO_SATURDAY)
+                                .sidedishDeliveryTypes(deliveryType.stream().map(SidedishDeliveryType::new).collect(Collectors.toSet()))
+                                .build()
                 )
                 .sidedisheBadges(badge.stream().map(SidedishBadge::new).collect(Collectors.toSet()))
                 .build();

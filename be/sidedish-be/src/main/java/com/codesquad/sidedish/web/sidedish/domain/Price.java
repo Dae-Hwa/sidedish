@@ -6,6 +6,8 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 
 public class Price {
+    public static final Price DEFAULT_DELIVERY_PRICE = new Price(2500L);
+
     private static final String POSTFIX = "원";
 
     private final long price;
