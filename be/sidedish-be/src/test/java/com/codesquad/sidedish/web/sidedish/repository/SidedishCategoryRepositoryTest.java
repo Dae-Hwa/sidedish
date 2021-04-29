@@ -1,6 +1,8 @@
 package com.codesquad.sidedish.web.sidedish.repository;
 
 import com.codesquad.sidedish.web.sidedish.domain.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -26,8 +28,10 @@ class SidedishCategoryRepositoryTest {
     ImageRepository imageRepository;
 
     @AfterEach
-    void tearDown() {
-        logger.debug("{}", sidedishCategoryRepository.findAll());
+    void tearDown() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        logger.debug("\n{}", objectMapper.writerWithDefaultPrettyPrinter()
+                .writeValueAsString(sidedishCategoryRepository.findAll()));
     }
 
     @Test
@@ -92,6 +96,66 @@ class SidedishCategoryRepositoryTest {
                 .salePrice(new Price(70L))
                 .stock(5)
                 .sidedisheBadges(new HashSet<>(Arrays.asList(sidedishBadge)))
+                .build();
+
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
+
+        assertThat(result.getSidedishes()).contains(sidedish);
+    }
+
+    @Test
+    void saveDelivery() {
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
+
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedishDelivery(new SidedishDelivery(new Price(2500L), null))
+                .build();
+
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
+
+        assertThat(result.getSidedishes()).contains(sidedish);
+    }
+
+    @Test
+    void saveDeliveryDay() {
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
+
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedishDelivery(new SidedishDelivery(
+                        new Price(2500L),
+                        new SidedishDeliveryDay(true, true, true, true, true, true, false)
+                ))
+                .build();
+
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
+
+        assertThat(result.getSidedishes()).contains(sidedish);
+    }
+
+    @Test
+    void saveDeliveryType() {
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
+
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedishDelivery(
+                        new SidedishDelivery(new Price(2500L), null)
+                                .addSidedishDeliveryTypes(Arrays.asList(new SidedishDeliveryType("전국배송")))
+                )
                 .build();
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
