@@ -1,6 +1,7 @@
 package com.codesquad.sidedish.web.sidedish.service;
 
 import com.codesquad.sidedish.web.sidedish.DTO.ItemDTO;
+import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
 import com.codesquad.sidedish.web.sidedish.domain.Image;
 import com.codesquad.sidedish.web.sidedish.domain.SidedishCategory;
 import com.codesquad.sidedish.web.sidedish.repository.ImageRepository;
@@ -19,6 +20,15 @@ public class SidedishCategoryService {
     public SidedishCategoryService(SidedishCategoryRepository sidedishCategoryRepository, ImageRepository imageRepository) {
         this.sidedishCategoryRepository = sidedishCategoryRepository;
         this.imageRepository = imageRepository;
+    }
+
+    public List<SidedishDTO> readBestCategories() {
+        Map<Long, Image> images = imageRepository.findAll().stream()
+                .collect(Collectors.toMap(Image::getId, image -> image));
+
+        return sidedishCategoryRepository.findByIsBestTrue().stream()
+                .map(sidedishCategory -> SidedishDTO.of(sidedishCategory, images))
+                .collect(Collectors.toList());
     }
 
     public List<ItemDTO> readSideSidedishesBy(String categoryName) {
