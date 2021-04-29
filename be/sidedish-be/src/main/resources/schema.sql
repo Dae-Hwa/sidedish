@@ -113,11 +113,9 @@ DROP TABLE IF EXISTS `sidedish`.`sidedish_delivery`;
 
 CREATE TABLE IF NOT EXISTS `sidedish`.`sidedish_delivery`
 (
-    `id`          INT         NOT NULL AUTO_INCREMENT,
-    `fee`         VARCHAR(45) NULL,
-    `sidedish_id` INT         NOT NULL,
-    PRIMARY KEY (`id`),
-    INDEX `fk_sidedish_delivery_sidedish1_idx` (`sidedish_id` ASC),
+    `sidedish_id`       INT     NOT NULL,
+    `delivery_price`    INT     NULL,
+    PRIMARY KEY (`sidedish_id`),
     CONSTRAINT `fk_sidedish_delivery_sidedish1`
         FOREIGN KEY (`sidedish_id`)
             REFERENCES `sidedish`.`sidedish` (`id`)
@@ -134,18 +132,17 @@ DROP TABLE IF EXISTS `sidedish`.`sidedish_delivery_type`;
 
 CREATE TABLE IF NOT EXISTS `sidedish`.`sidedish_delivery_type`
 (
-    `id`                   INT         NOT NULL AUTO_INCREMENT,
-    `name`                 VARCHAR(45) NULL,
-    `sidedish_delivery_id` INT         NOT NULL,
+    `id`            INT         NOT NULL,
+    `name`          VARCHAR(45) NULL,
+    `sidedish_id`   INT         NOT NULL,
     PRIMARY KEY (`id`),
-    INDEX `fk_sidedish_delivery_type_sidedish_delivery1_idx` (`sidedish_delivery_id` ASC),
+    INDEX `fk_sidedish_delivery_type_sidedish_delivery1_idx` (`sidedish_id` ASC),
     CONSTRAINT `fk_sidedish_delivery_type_sidedish_delivery1`
-        FOREIGN KEY (`sidedish_delivery_id`)
-            REFERENCES `sidedish`.`sidedish_delivery` (`id`)
+        FOREIGN KEY (`sidedish_id`)
+            REFERENCES `sidedish`.`sidedish_delivery` (`sidedish_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-)
-    COMMENT = '								';
+);
 
 
 -- -----------------------------------------------------
@@ -176,20 +173,18 @@ DROP TABLE IF EXISTS `sidedish`.`sidedish_delivery_day`;
 
 CREATE TABLE IF NOT EXISTS `sidedish`.`sidedish_delivery_day`
 (
-    `sidedish_delivery_id` INT     NOT NULL,
-    `monday`               BOOLEAN NOT NULL DEFAULT 0,
-    `tuesday`              BOOLEAN NOT NULL DEFAULT 0,
-    `wednesday`            BOOLEAN NOT NULL DEFAULT 0,
-    `thursday`             BOOLEAN NOT NULL DEFAULT 0,
-    `friday`               BOOLEAN NOT NULL DEFAULT 0,
-    `saturday`             BOOLEAN NOT NULL DEFAULT 0,
-    `sunday`               BOOLEAN NOT NULL DEFAULT 0,
-    PRIMARY KEY (`sidedish_delivery_id`),
-    INDEX `fk_sidedish_delivery_day_sidedish_delivery1_idx` (`sidedish_delivery_id` ASC),
+    `sidedish_id` INT NOT NULL,
+    `monday` TINYINT NOT NULL DEFAULT 0,
+    `tuesday` TINYINT NOT NULL DEFAULT 0,
+    `wednesday` TINYINT NOT NULL DEFAULT 0,
+    `thursday` TINYINT NOT NULL DEFAULT 0,
+    `friday` TINYINT NOT NULL DEFAULT 0,
+    `saturday` TINYINT NOT NULL DEFAULT 0,
+    `sunday` TINYINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (`sidedish_id`),
     CONSTRAINT `fk_sidedish_delivery_day_sidedish_delivery1`
-        FOREIGN KEY (`sidedish_delivery_id`)
-            REFERENCES `sidedish`.`sidedish_delivery` (`id`)
+        FOREIGN KEY (`sidedish_id`)
+            REFERENCES `sidedish`.`sidedish_delivery` (`sidedish_id`)
             ON DELETE NO ACTION
             ON UPDATE NO ACTION
-)
-;
+);
