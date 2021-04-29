@@ -1,5 +1,10 @@
 package com.codesquad.sidedish.web.sidedish.DTO;
 
+import com.codesquad.sidedish.web.sidedish.domain.Image;
+import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
+
+import java.util.List;
+
 public class DetailDTO {
     private String hash;
     private DetailDataDTO data;
@@ -10,6 +15,13 @@ public class DetailDTO {
     public DetailDTO(String hash, DetailDataDTO data) {
         this.hash = hash;
         this.data = data;
+    }
+
+    public static DetailDTO of(Sidedish sidedish, Image topImage, List<Image> thumbImages) {
+        return DetailDTO.builder()
+                .hash(sidedish.getId().toString())
+                .data(DetailDataDTO.of(sidedish, topImage, thumbImages))
+                .build();
     }
 
     public static DetailDTOBuilder builder() {

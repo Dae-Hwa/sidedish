@@ -21,10 +21,6 @@ public class Price {
         this(parsePrice(price));
     }
 
-    public String getFormattedPrice() {
-        return NumberFormat.getInstance().format(price) + POSTFIX;
-    }
-
     private static long parsePrice(String price) {
         try {
             return NumberFormat.getInstance().parse(price).longValue();
@@ -33,10 +29,19 @@ public class Price {
         }
     }
 
+    public String getFormattedPrice() {
+        return NumberFormat.getInstance().format(price) + POSTFIX;
+    }
+
+    public Price dividedBy(long divideNumber) {
+        return new Price(price / divideNumber);
+    }
+
     @Override
     public String toString() {
         return "Price{" +
                 "price=" + price +
                 '}';
     }
+
 }

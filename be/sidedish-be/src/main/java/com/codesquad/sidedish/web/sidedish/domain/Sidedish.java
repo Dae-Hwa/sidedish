@@ -83,6 +83,14 @@ public class Sidedish {
         return sidedishImage.getName();
     }
 
+    public Price point() {
+        return salePrice.dividedBy(100);
+    }
+
+    public Price deliveryPrice() {
+        return sidedishDelivery.getDeliveryPrice();
+    }
+
     public Long getId() {
         return id;
     }

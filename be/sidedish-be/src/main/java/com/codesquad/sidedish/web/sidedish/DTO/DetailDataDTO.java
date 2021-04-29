@@ -1,7 +1,10 @@
 package com.codesquad.sidedish.web.sidedish.DTO;
 
+import com.codesquad.sidedish.web.sidedish.domain.Image;
 import com.codesquad.sidedish.web.sidedish.domain.Price;
+import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,12 +17,11 @@ public class DetailDataDTO {
     private String deliveryInfo;
     private Price deliveryFee;
     private List<Price> prices = Collections.emptyList();
-    private List<String> detailSection = Collections.emptyList();
 
     public DetailDataDTO() {
     }
 
-    public DetailDataDTO(String topImage, List<String> thumbImages, String productDescription, Price point, String deliveryInfo, Price deliveryFee, List<Price> prices, List<String> detailSection) {
+    public DetailDataDTO(String topImage, List<String> thumbImages, String productDescription, Price point, String deliveryInfo, Price deliveryFee, List<Price> prices) {
         this.topImage = topImage;
         this.thumbImages = thumbImages;
         this.productDescription = productDescription;
@@ -27,7 +29,18 @@ public class DetailDataDTO {
         this.deliveryInfo = deliveryInfo;
         this.deliveryFee = deliveryFee;
         this.prices = prices;
-        this.detailSection = detailSection;
+    }
+
+    public static DetailDataDTO of(Sidedish sidedish, Image topImage, List<Image> thumbImages) {
+        return DetailDataDTO.builder()
+                .topImage(topImage.getUrl())
+                .thumbImages(thumbImages.stream().map(thumbImage -> thumbImage.getUrl()).collect(Collectors.toList()))
+                .productDescription(sidedish.getDescription())
+                .point(sidedish.point())
+                .deliveryInfo("서울 경기 새벽배송 / 전국택배 (제주 및 도서산간 불가) [화 · 수 · 목 · 금 · 토] 수령 가능한 상품입니다.")
+                .deliveryFee(sidedish.deliveryPrice())
+                .prices(Arrays.asList(sidedish.getNormalPrice(), sidedish.getSalePrice()))
+                .build();
     }
 
     public static DetailDataDTOBuilder builder() {
@@ -92,14 +105,6 @@ public class DetailDataDTO {
         this.prices = prices;
     }
 
-    public List<String> getDetailSection() {
-        return detailSection;
-    }
-
-    public void setDetailSection(List<String> detailSection) {
-        this.detailSection = detailSection;
-    }
-
     public static final class DetailDataDTOBuilder {
         private String topImage;
         private List<String> thumbImages;
@@ -108,7 +113,6 @@ public class DetailDataDTO {
         private String deliveryInfo;
         private Price deliveryFee;
         private List<Price> prices;
-        private List<String> detailSection;
 
         private DetailDataDTOBuilder() {
         }
@@ -152,13 +156,8 @@ public class DetailDataDTO {
             return this;
         }
 
-        public DetailDataDTOBuilder detailSection(List<String> detailSection) {
-            this.detailSection = detailSection;
-            return this;
-        }
-
         public DetailDataDTO build() {
-            return new DetailDataDTO(topImage, thumbImages, productDescription, point, deliveryInfo, deliveryFee, prices, detailSection);
+            return new DetailDataDTO(topImage, thumbImages, productDescription, point, deliveryInfo, deliveryFee, prices);
         }
     }
 }
