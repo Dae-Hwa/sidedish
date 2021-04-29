@@ -46,7 +46,7 @@ public class Sidedish {
         this.salePrice = salePrice;
         this.stock = stock;
         this.sidedishDelivery = sidedishDelivery == null ? SidedishDelivery.empty() : sidedishDelivery;
-        this.sidedishImage =  sidedishImage;
+        this.sidedishImage = sidedishImage;
     }
 
     public static SidedishBuilder builder() {
@@ -65,6 +65,18 @@ public class Sidedish {
     public Sidedish addSidedisheBadges(Collection<SidedishBadge> sidedisheBadges) {
         this.sidedisheBadges.addAll(sidedisheBadges);
         return this;
+    }
+
+    public Collection<SidedishDeliveryType> sidedishDeliveryTypes() {
+        return sidedishDelivery.getSidedishDeliveryTypes();
+    }
+
+    public long imageId() {
+        return sidedishImage.getImageId();
+    }
+
+    public String imageName() {
+        return sidedishImage.getName();
     }
 
     public Long getId() {
