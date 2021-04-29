@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface SidedishCategoryRepository extends CrudRepository<SidedishCategory, Long> {
     SidedishCategory findByNameIs(String name);
+
     List<SidedishCategory> findByIsBestTrue();
 }

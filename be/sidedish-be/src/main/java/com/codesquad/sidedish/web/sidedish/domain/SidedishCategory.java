@@ -6,6 +6,7 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 public class SidedishCategory {
     @Id
@@ -23,6 +24,10 @@ public class SidedishCategory {
     public SidedishCategory addSidedishes(Collection<Sidedish> sidedishes) {
         this.sidedishes.addAll(sidedishes);
         return this;
+    }
+
+    public Stream<Sidedish> sidedishStream() {
+        return sidedishes.stream().sequential();
     }
 
     public Long getId() {

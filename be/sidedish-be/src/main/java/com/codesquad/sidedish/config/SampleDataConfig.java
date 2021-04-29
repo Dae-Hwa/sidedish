@@ -1,8 +1,8 @@
 package com.codesquad.sidedish.config;
 
 import com.codesquad.sidedish.utils.SampleDataFactory;
-import com.codesquad.sidedish.web.sidedish.DTO.ItemDTO;
 import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
+import com.codesquad.sidedish.web.sidedish.DTO.BestSidedishDTO;
 import com.codesquad.sidedish.web.sidedish.domain.Image;
 import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
 import com.codesquad.sidedish.web.sidedish.domain.SidedishCategory;
@@ -35,9 +35,9 @@ public class SampleDataConfig {
         Image thumbnailImage3 = imageRepository.save(new Image("http://public.codesquad.kr/jk/storeapp/data/detail/HBDEF/e30bd6de9340fc05db3cd1d1329b2c56.jpg"
                 , "thumbnail3"));
 
-        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createBestSidedishes();
-        List<SidedishCategory> sidedishCategories = sidedishDTOs.stream()
-                .map(SidedishDTO::sidedishBestCategory)
+        List<BestSidedishDTO> bestSidedishDTOs = SampleDataFactory.createBestSidedishes();
+        List<SidedishCategory> sidedishCategories = bestSidedishDTOs.stream()
+                .map(BestSidedishDTO::sidedishBestCategory)
                 .collect(Collectors.toList());
 
         for (SidedishCategory sidedishCategory : sidedishCategories) {
@@ -62,9 +62,9 @@ public class SampleDataConfig {
         Image thumbnailImage3 = imageRepository.save(new Image("http://public.codesquad.kr/jk/storeapp/data/detail/HDF73/f6d73afc0ebc1efa71eaea32e9d846f2.jpg"
                 , "thumbnail3"));
 
-        List<ItemDTO> sidedishDTOs = SampleDataFactory.createMainSidedishes();
+        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createMainSidedishes();
         List<Sidedish> sidedishes = sidedishDTOs.stream()
-                .map(ItemDTO::sidedish)
+                .map(SidedishDTO::sidedish)
                 .collect(Collectors.toList());
 
         for (Sidedish sidedish : sidedishes) {
@@ -81,7 +81,7 @@ public class SampleDataConfig {
     public ApplicationRunner course(SidedishCategoryRepository sidedishCategoryRepository) {
         SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("코스요리", false));
 
-        List<ItemDTO> sidedishDTOs = SampleDataFactory.createCourseSidedishes();
+        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createCourseSidedishes();
         return getApplicationRunner(sidedishCategoryRepository, sidedishCategory, sidedishDTOs);
     }
 
@@ -97,9 +97,9 @@ public class SampleDataConfig {
         Image thumbnailImage3 = imageRepository.save(new Image("http://public.codesquad.kr/jk/storeapp/data/detail/H602F/7c1e24867611394f04b37d05593e21ba.jpg"
                 , "thumbnail3"));
 
-        List<ItemDTO> sidedishDTOs = SampleDataFactory.createSideSidedishes();
+        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createSideSidedishes();
         List<Sidedish> sidedishes = sidedishDTOs.stream()
-                .map(ItemDTO::sidedish)
+                .map(SidedishDTO::sidedish)
                 .collect(Collectors.toList());
 
         for (Sidedish sidedish : sidedishes) {
@@ -124,9 +124,9 @@ public class SampleDataConfig {
         Image thumbnailImage3 = imageRepository.save(new Image("http://public.codesquad.kr/jk/storeapp/data/detail/H26C7/b96b02e9a956c6d5ad1e10eb14ba81e0.jpg"
                 , "thumbnail3"));
 
-        List<ItemDTO> sidedishDTOs = SampleDataFactory.createSoupSidedishes();
+        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createSoupSidedishes();
         List<Sidedish> sidedishes = sidedishDTOs.stream()
-                .map(ItemDTO::sidedish)
+                .map(SidedishDTO::sidedish)
                 .collect(Collectors.toList());
 
         for (Sidedish sidedish : sidedishes) {
@@ -139,13 +139,13 @@ public class SampleDataConfig {
         return args -> sidedishCategoryRepository.save(sidedishCategory);
     }
 
-    private ApplicationRunner getApplicationRunner(SidedishCategoryRepository sidedishCategoryRepository, SidedishCategory sidedishCategory, List<ItemDTO> sidedishDTOs) {
+    private ApplicationRunner getApplicationRunner(SidedishCategoryRepository sidedishCategoryRepository, SidedishCategory sidedishCategory, List<SidedishDTO> sidedishDTOs) {
         Image thumbnailImage1 = imageRepository.findById(6L).get();
         Image thumbnailImage2 = imageRepository.findById(7L).get();
         Image thumbnailImage3 = imageRepository.findById(8L).get();
 
         List<Sidedish> sidedishes = sidedishDTOs.stream()
-                .map(ItemDTO::sidedish)
+                .map(SidedishDTO::sidedish)
                 .collect(Collectors.toList());
 
         for (Sidedish sidedish : sidedishes) {

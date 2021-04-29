@@ -1,8 +1,8 @@
 package com.codesquad.sidedish.utils;
 
 import com.codesquad.sidedish.web.sidedish.DTO.DetailDTO;
-import com.codesquad.sidedish.web.sidedish.DTO.ItemDTO;
 import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
+import com.codesquad.sidedish.web.sidedish.DTO.BestSidedishDTO;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,33 +26,33 @@ public class SampleDataFactory {
     private SampleDataFactory() {
     }
 
-    public static List<SidedishDTO> createBestSidedishes() {
-        return jsonToObject("best-sidedishes", new TypeReference<List<SidedishDTO>>() {
+    public static List<BestSidedishDTO> createBestSidedishes() {
+        return jsonToObject("best-sidedishes", new TypeReference<List<BestSidedishDTO>>() {
         });
     }
 
-    public static List<ItemDTO> createMainSidedishes() {
-        return jsonToObject("main-sidedishes", new TypeReference<List<ItemDTO>>() {
+    public static List<SidedishDTO> createMainSidedishes() {
+        return jsonToObject("main-sidedishes", new TypeReference<List<SidedishDTO>>() {
         });
     }
 
-    public static List<ItemDTO> createCourseSidedishes() {
-        return jsonToObject("course-sidedishes", new TypeReference<List<ItemDTO>>() {
+    public static List<SidedishDTO> createCourseSidedishes() {
+        return jsonToObject("course-sidedishes", new TypeReference<List<SidedishDTO>>() {
         });
     }
 
-    public static List<ItemDTO> createSoupSidedishes() {
-        return jsonToObject("soup-sidedishes", new TypeReference<List<ItemDTO>>() {
+    public static List<SidedishDTO> createSoupSidedishes() {
+        return jsonToObject("soup-sidedishes", new TypeReference<List<SidedishDTO>>() {
         });
     }
 
-    public static List<ItemDTO> createSideSidedishes() {
-        return jsonToObject("side-sidedishes", new TypeReference<List<ItemDTO>>() {
+    public static List<SidedishDTO> createSideSidedishes() {
+        return jsonToObject("side-sidedishes", new TypeReference<List<SidedishDTO>>() {
         });
     }
 
-    public static List<ItemDTO> createRecommendSidedishes() {
-        return jsonToObject("recommend", new TypeReference<List<ItemDTO>>() {
+    public static List<SidedishDTO> createRecommendSidedishes() {
+        return jsonToObject("recommend", new TypeReference<List<SidedishDTO>>() {
         });
     }
 
