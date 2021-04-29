@@ -71,6 +71,10 @@ public class Sidedish {
         return sidedishDelivery.getSidedishDeliveryTypes();
     }
 
+    public void changeImage(SidedishImage sidedishImage) {
+        this.sidedishImage = sidedishImage;
+    }
+
     public long imageId() {
         return sidedishImage.getImageId();
     }
