@@ -24,7 +24,11 @@ public class Sidedish {
 
     @Embedded(onEmpty = USE_NULL, prefix = "SALE_")
     private Price salePrice;
+
     private int stock;
+
+    @Column("SIDEDISH_ID")
+    private SidedishDelivery sidedishDelivery;
 
     @Column("SIDEDISH_ID")
     private SidedishImage sidedishImage;
@@ -35,12 +39,13 @@ public class Sidedish {
     @MappedCollection(idColumn = "SIDEDISH_ID")
     private Set<SidedishBadge> sidedisheBadges = new HashSet<>();
 
-    public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock, SidedishImage sidedishImage) {
+    public Sidedish(String name, String description, Price normalPrice, Price salePrice, int stock, SidedishDelivery sidedishDelivery, SidedishImage sidedishImage) {
         this.name = name;
         this.description = description;
         this.normalPrice = normalPrice;
         this.salePrice = salePrice;
         this.stock = stock;
+        this.sidedishDelivery = sidedishDelivery;
         this.sidedishImage = sidedishImage;
     }
 
@@ -101,6 +106,7 @@ public class Sidedish {
         private Price normalPrice;
         private Price salePrice;
         private int stock;
+        private SidedishDelivery sidedishDelivery;
         private SidedishImage sidedishImage;
         private Set<SidedishThumbImage> sidedishThumbImages = new HashSet<>();
         private Set<SidedishBadge> sidedisheBadges = new HashSet<>();
@@ -142,6 +148,11 @@ public class Sidedish {
             return this;
         }
 
+        public SidedishBuilder sidedishDelivery(SidedishDelivery sidedishDelivery) {
+            this.sidedishDelivery = sidedishDelivery;
+            return this;
+        }
+
         public SidedishBuilder sidedishImage(SidedishImage sidedishImage) {
             this.sidedishImage = sidedishImage;
             return this;
@@ -158,7 +169,7 @@ public class Sidedish {
         }
 
         public Sidedish build() {
-            Sidedish sidedish = new Sidedish(name, description, normalPrice, salePrice, stock, sidedishImage);
+            Sidedish sidedish = new Sidedish(name, description, normalPrice, salePrice, stock, sidedishDelivery, sidedishImage);
             sidedish.id = this.id;
             sidedish.sidedishThumbImages = this.sidedishThumbImages;
             sidedish.sidedisheBadges = this.sidedisheBadges;

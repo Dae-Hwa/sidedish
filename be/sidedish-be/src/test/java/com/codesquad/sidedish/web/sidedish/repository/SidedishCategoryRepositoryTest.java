@@ -98,4 +98,22 @@ class SidedishCategoryRepositoryTest {
 
         assertThat(result.getSidedishes()).contains(sidedish);
     }
+
+    @Test
+    void saveDelivery() {
+        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("메인반찬", false));
+
+        Sidedish sidedish = Sidedish.builder()
+                .name("반찬1")
+                .description("설명")
+                .normalPrice(new Price(100L))
+                .salePrice(new Price(70L))
+                .stock(5)
+                .sidedishDelivery(new SidedishDelivery(new Price(2500L)))
+                .build();
+
+        SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
+
+        assertThat(result.getSidedishes()).contains(sidedish);
+    }
 }
