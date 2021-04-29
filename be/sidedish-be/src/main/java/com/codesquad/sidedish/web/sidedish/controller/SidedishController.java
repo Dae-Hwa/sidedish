@@ -3,6 +3,7 @@ package com.codesquad.sidedish.web.sidedish.controller;
 import com.codesquad.sidedish.web.sidedish.DTO.ItemDTO;
 import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
 import com.codesquad.sidedish.web.sidedish.service.SidedishCategoryService;
+import com.codesquad.sidedish.web.sidedish.service.SidedishService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,9 +12,11 @@ import java.util.List;
 @RestController
 public class SidedishController {
     SidedishCategoryService sidedishCategoryService;
+    SidedishService sidedishService;
 
-    public SidedishController(SidedishCategoryService sidedishCategoryService) {
+    public SidedishController(SidedishCategoryService sidedishCategoryService, SidedishService sidedishService) {
         this.sidedishCategoryService = sidedishCategoryService;
+        this.sidedishService = sidedishService;
     }
 
     @GetMapping("/best")
@@ -39,5 +42,10 @@ public class SidedishController {
     @GetMapping("/side")
     public List<ItemDTO> readSideSidedishes() {
         return sidedishCategoryService.readSideSidedishesBy("밑반찬");
+    }
+
+    @GetMapping("/recommend")
+    public List<ItemDTO> readRecommendedSideSidedishes() {
+        return sidedishService.getRecommendedSidedishList();
     }
 }

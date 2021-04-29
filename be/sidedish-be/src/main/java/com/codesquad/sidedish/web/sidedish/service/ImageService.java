@@ -1,0 +1,22 @@
+package com.codesquad.sidedish.web.sidedish.service;
+
+import com.codesquad.sidedish.web.sidedish.domain.Image;
+import com.codesquad.sidedish.web.sidedish.repository.ImageRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Service
+public class ImageService {
+    ImageRepository imageRepository;
+
+    public ImageService(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
+
+    public Map<Long, Image> readImages() {
+        return imageRepository.findAll().stream()
+                .collect(Collectors.toMap(Image::getId, image -> image));
+    }
+}
