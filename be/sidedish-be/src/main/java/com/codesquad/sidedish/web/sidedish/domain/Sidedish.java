@@ -62,7 +62,7 @@ public class Sidedish {
         return this;
     }
 
-    public Sidedish addSidedisheBadges(Collection<SidedishBadge> sidedisheBadges) {
+    public Sidedish addSidedishBadges(Collection<SidedishBadge> sidedisheBadges) {
         this.sidedisheBadges.addAll(sidedisheBadges);
         return this;
     }
