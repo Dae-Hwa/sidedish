@@ -174,13 +174,13 @@ DROP TABLE IF EXISTS `sidedish`.`sidedish_delivery_day`;
 CREATE TABLE IF NOT EXISTS `sidedish`.`sidedish_delivery_day`
 (
     `sidedish_id` INT NOT NULL,
-    `monday` TINYINT NOT NULL DEFAULT 0,
-    `tuesday` TINYINT NOT NULL DEFAULT 0,
-    `wednesday` TINYINT NOT NULL DEFAULT 0,
-    `thursday` TINYINT NOT NULL DEFAULT 0,
-    `friday` TINYINT NOT NULL DEFAULT 0,
-    `saturday` TINYINT NOT NULL DEFAULT 0,
-    `sunday` TINYINT NOT NULL DEFAULT 0,
+    `monday` BOOLEAN NOT NULL DEFAULT 0,
+    `tuesday` BOOLEAN NOT NULL DEFAULT 0,
+    `wednesday` BOOLEAN NOT NULL DEFAULT 0,
+    `thursday` BOOLEAN NOT NULL DEFAULT 0,
+    `friday` BOOLEAN NOT NULL DEFAULT 0,
+    `saturday` BOOLEAN NOT NULL DEFAULT 0,
+    `sunday` BOOLEAN NOT NULL DEFAULT 0,
     PRIMARY KEY (`sidedish_id`),
     CONSTRAINT `fk_sidedish_delivery_day_sidedish_delivery1`
         FOREIGN KEY (`sidedish_id`)
