@@ -8,7 +8,6 @@ import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
 import com.codesquad.sidedish.web.sidedish.domain.SidedishCategory;
 import com.codesquad.sidedish.web.sidedish.repository.ImageRepository;
 import com.codesquad.sidedish.web.sidedish.repository.SidedishCategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +18,11 @@ import java.util.stream.Collectors;
 
 @Configuration
 public class SampleDataConfig {
-    @Autowired
     ImageRepository imageRepository;
+
+    public SampleDataConfig(ImageRepository imageRepository) {
+        this.imageRepository = imageRepository;
+    }
 
     @Bean
     public ApplicationRunner best(SidedishCategoryRepository sidedishCategoryRepository) {
@@ -135,14 +137,6 @@ public class SampleDataConfig {
         sidedishCategory.addSidedishes(sidedishes);
 
         return args -> sidedishCategoryRepository.save(sidedishCategory);
-    }
-
-    @Bean
-    public ApplicationRunner recommend(SidedishCategoryRepository sidedishCategoryRepository) {
-        SidedishCategory sidedishCategory = sidedishCategoryRepository.save(new SidedishCategory("추천요리", false));
-
-        List<ItemDTO> sidedishDTOs = SampleDataFactory.createRecommendSidedishes();
-        return getApplicationRunner(sidedishCategoryRepository, sidedishCategory, sidedishDTOs);
     }
 
     private ApplicationRunner getApplicationRunner(SidedishCategoryRepository sidedishCategoryRepository, SidedishCategory sidedishCategory, List<ItemDTO> sidedishDTOs) {
