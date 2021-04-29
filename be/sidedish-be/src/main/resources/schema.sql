@@ -132,11 +132,10 @@ DROP TABLE IF EXISTS `sidedish`.`sidedish_delivery_type`;
 
 CREATE TABLE IF NOT EXISTS `sidedish`.`sidedish_delivery_type`
 (
-    `id`            INT         NOT NULL,
-    `name`          VARCHAR(45) NULL,
-    `sidedish_id`   INT         NOT NULL,
-    PRIMARY KEY (`id`),
+    `sidedish_id` INT NOT NULL,
+    `name` VARCHAR(45) NOT NULL,
     INDEX `fk_sidedish_delivery_type_sidedish_delivery1_idx` (`sidedish_id` ASC),
+    PRIMARY KEY (`sidedish_id`, `name`),
     CONSTRAINT `fk_sidedish_delivery_type_sidedish_delivery1`
         FOREIGN KEY (`sidedish_id`)
             REFERENCES `sidedish`.`sidedish_delivery` (`sidedish_id`)
