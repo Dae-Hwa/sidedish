@@ -51,6 +51,11 @@ public class SampleDataFactory {
         });
     }
 
+    public static List<ItemDTO> createRecommendSidedishes() {
+        return jsonToObject("recommend", new TypeReference<List<ItemDTO>>() {
+        });
+    }
+
     public static Map<String, DetailDTO> createDetails() {
         List<DetailDTO> detailDTOs = jsonToObject("details", new TypeReference<List<DetailDTO>>() {
         });
@@ -67,4 +72,5 @@ public class SampleDataFactory {
             throw new NotReadJsonFileException(JSON_PATH_PREFIX + jsonFileName + JSON_EXTENSION, e);
         }
     }
+
 }
