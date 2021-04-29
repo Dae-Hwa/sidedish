@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `sidedish`.`image`;
 CREATE TABLE IF NOT EXISTS `sidedish`.`image`
 (
     `id`  INT         NOT NULL AUTO_INCREMENT,
-    `url` VARCHAR(45) NOT NULL,
+    `url` VARCHAR(255) NOT NULL,
     `description` VARCHAR(45) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `url_UNIQUE` (`url` ASC)
