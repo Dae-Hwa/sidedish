@@ -2,9 +2,9 @@ package com.codesquad.sidedish.utils;
 
 import com.codesquad.sidedish.web.sidedish.*;
 import com.codesquad.sidedish.web.sidedish.DTO.DetailDTO;
-import com.codesquad.sidedish.web.sidedish.DTO.ItemDTO;
-import com.codesquad.sidedish.web.sidedish.ItemDTOTestResults;
 import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
+import com.codesquad.sidedish.web.sidedish.ItemDTOTestResults;
+import com.codesquad.sidedish.web.sidedish.DTO.BestSidedishDTO;
 import com.codesquad.sidedish.web.sidedish.SidedishDTOTestResults;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,43 +26,43 @@ class SampleDataFactoryTest {
 
     @Test
     void createBestSidedishes() throws JsonProcessingException {
-        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createBestSidedishes();
+        List<BestSidedishDTO> bestSidedishDTOs = SampleDataFactory.createBestSidedishes();
 
-        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(sidedishDTOs))
+        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(bestSidedishDTOs))
                 .isEqualTo(SidedishDTOTestResults.BEST_MENU);
 
     }
 
     @Test
     void createMainSidedishes() throws JsonProcessingException {
-        List<ItemDTO> itemDTOS = SampleDataFactory.createMainSidedishes();
+        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createMainSidedishes();
 
-        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(itemDTOS))
+        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(sidedishDTOs))
                 .isEqualTo(ItemDTOTestResults.MAIN_MENU);
     }
 
 
     @Test
     void createCourseSidedishes() throws JsonProcessingException {
-        List<ItemDTO> itemDTOs = SampleDataFactory.createCourseSidedishes();
+        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createCourseSidedishes();
 
-        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(itemDTOs))
+        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(sidedishDTOs))
                 .isEqualTo(ItemDTOTestResults.COURSE_MENU);
     }
 
     @Test
     void createSoupSidedishes() throws JsonProcessingException {
-        List<ItemDTO> itemDTOs = SampleDataFactory.createSoupSidedishes();
+        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createSoupSidedishes();
 
-        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(itemDTOs))
+        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(sidedishDTOs))
                 .isEqualTo(ItemDTOTestResults.SOUP_MENU);
     }
 
     @Test
     void createSideSidedishes() throws JsonProcessingException {
-        List<ItemDTO> itemDTOs = SampleDataFactory.createSoupSidedishes();
+        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createSoupSidedishes();
 
-        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(itemDTOs))
+        assertThat(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(sidedishDTOs))
                 .isEqualTo(ItemDTOTestResults.SIDE_MENU);
     }
 

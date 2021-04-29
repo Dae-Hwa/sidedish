@@ -1,6 +1,6 @@
 package com.codesquad.sidedish.web.sidedish.service;
 
-import com.codesquad.sidedish.web.sidedish.DTO.ItemDTO;
+import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
 import com.codesquad.sidedish.web.sidedish.domain.Sidedish;
 import com.codesquad.sidedish.web.sidedish.repository.SidedishRepository;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class SidedishService {
         this.imageService = imageService;
     }
 
-    public List<ItemDTO> getRecommendedSidedishList() {
+    public List<SidedishDTO> getRecommendedSidedishList() {
         List<Sidedish> sidedishes = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
@@ -27,7 +27,7 @@ public class SidedishService {
         }
 
         return sidedishes
-                .stream().map(s -> ItemDTO.of(s, imageService.readImages()))
+                .stream().map(s -> SidedishDTO.of(s, imageService.readImages()))
                 .collect(Collectors.toList());
     }
 }

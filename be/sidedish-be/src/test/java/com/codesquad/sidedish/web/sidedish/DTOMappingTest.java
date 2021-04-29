@@ -2,7 +2,7 @@ package com.codesquad.sidedish.web.sidedish;
 
 import com.codesquad.sidedish.utils.SampleDataFactory;
 import com.codesquad.sidedish.web.sidedish.DTO.DetailDTO;
-import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
+import com.codesquad.sidedish.web.sidedish.DTO.BestSidedishDTO;
 import com.codesquad.sidedish.web.sidedish.domain.*;
 import com.codesquad.sidedish.web.sidedish.repository.ImageRepository;
 import com.codesquad.sidedish.web.sidedish.repository.SidedishCategoryRepository;
@@ -31,9 +31,9 @@ public class DTOMappingTest {
 
     @Test
     void createBestSidedishes() throws JsonProcessingException {
-        List<SidedishDTO> sidedishDTOs = SampleDataFactory.createBestSidedishes();
+        List<BestSidedishDTO> bestSidedishDTOs = SampleDataFactory.createBestSidedishes();
 
-        List<SidedishCategory> categories = sidedishDTOs.stream().map(SidedishDTO::sidedishBestCategory).collect(Collectors.toList());
+        List<SidedishCategory> categories = bestSidedishDTOs.stream().map(BestSidedishDTO::sidedishBestCategory).collect(Collectors.toList());
 
         System.out.println(objectMapper.writerWithDefaultPrettyPrinter()
                 .writeValueAsString(categories));
@@ -61,7 +61,7 @@ public class DTOMappingTest {
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
-        SidedishDTO mappingResult = SidedishDTO.of(result, new HashMap<Long, Image>() {{
+        BestSidedishDTO mappingResult = BestSidedishDTO.of(result, new HashMap<Long, Image>() {{
             put(image.getId(), image);
         }});
 
@@ -85,7 +85,7 @@ public class DTOMappingTest {
 
         SidedishCategory result = sidedishCategoryRepository.save(sidedishCategory.addSidedishes(Arrays.asList(sidedish)));
 
-        SidedishDTO mappingResult = SidedishDTO.of(result, new HashMap<Long, Image>() {{
+        BestSidedishDTO mappingResult = BestSidedishDTO.of(result, new HashMap<Long, Image>() {{
             put(image.getId(), image);
         }});
 

@@ -1,7 +1,7 @@
 package com.codesquad.sidedish.web.sidedish.controller;
 
-import com.codesquad.sidedish.web.sidedish.DTO.ItemDTO;
 import com.codesquad.sidedish.web.sidedish.DTO.SidedishDTO;
+import com.codesquad.sidedish.web.sidedish.DTO.BestSidedishDTO;
 import com.codesquad.sidedish.web.sidedish.service.SidedishCategoryService;
 import com.codesquad.sidedish.web.sidedish.service.SidedishService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,32 +20,32 @@ public class SidedishController {
     }
 
     @GetMapping("/best")
-    public List<SidedishDTO> readBestCategories() {
+    public List<BestSidedishDTO> readBestCategories() {
         return sidedishCategoryService.readBestCategories();
     }
 
     @GetMapping("/main")
-    public List<ItemDTO> readMainSidedishes() {
+    public List<SidedishDTO> readMainSidedishes() {
         return sidedishCategoryService.readSideSidedishesBy("메인요리");
     }
 
     @GetMapping("/soup")
-    public List<ItemDTO> readSoupSidedishes() {
+    public List<SidedishDTO> readSoupSidedishes() {
         return sidedishCategoryService.readSideSidedishesBy("국물요리");
     }
 
     @GetMapping("/course")
-    public List<ItemDTO> readCourseSidedishes() {
+    public List<SidedishDTO> readCourseSidedishes() {
         return sidedishCategoryService.readSideSidedishesBy("코스요리");
     }
 
     @GetMapping("/side")
-    public List<ItemDTO> readSideSidedishes() {
+    public List<SidedishDTO> readSideSidedishes() {
         return sidedishCategoryService.readSideSidedishesBy("밑반찬");
     }
 
     @GetMapping("/recommend")
-    public List<ItemDTO> readRecommendedSideSidedishes() {
+    public List<SidedishDTO> readRecommendedSideSidedishes() {
         return sidedishService.getRecommendedSidedishList();
     }
 }
