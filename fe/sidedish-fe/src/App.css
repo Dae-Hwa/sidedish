@@ -1,0 +1,10 @@
+.App {
+  width: 100%;
+  min-width: 100%;
+  max-width: 100%;
+  position: relative;
+  text-align: center;
+  box-sizing: border-box;
+  padding: 0 7%;
+  border: 1px lightgray solid;
+}
