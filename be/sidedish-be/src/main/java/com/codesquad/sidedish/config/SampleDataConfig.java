@@ -11,12 +11,14 @@ import com.codesquad.sidedish.web.sidedish.repository.SidedishCategoryRepository
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Configuration
+@Profile("default")
 public class SampleDataConfig {
     ImageRepository imageRepository;
 
