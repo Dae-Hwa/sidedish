@@ -51,11 +51,6 @@ public class SampleDataFactory {
         });
     }
 
-    public static List<SidedishDTO> createRecommendSidedishes() {
-        return jsonToObject("recommend", new TypeReference<List<SidedishDTO>>() {
-        });
-    }
-
     public static Map<String, DetailDTO> createDetails() {
         List<DetailDTO> detailDTOs = jsonToObject("details", new TypeReference<List<DetailDTO>>() {
         });
