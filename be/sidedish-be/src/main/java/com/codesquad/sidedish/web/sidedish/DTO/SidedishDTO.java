@@ -59,6 +59,9 @@ public class SidedishDTO {
     }
 
     public Sidedish sidedish() {
+        if(nPrice == null) {
+            nPrice = new Price(0L);
+        }
         return Sidedish.builder()
                 .name(title)
                 .description(description)
