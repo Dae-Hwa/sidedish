@@ -36,7 +36,13 @@ public class SidedishService {
     public DetailDTO readOne(Long id) {
         Sidedish sidedish = sidedishRepository.findById(id).orElseThrow(IllegalArgumentException::new);
         Image topImage = imageService.readImagesAsMap().getOrDefault(sidedish.imageId(), null);
-        List<Image> thumbImages = imageService.readImage();
+
+        List<Long> thumbImageIds = sidedish.getSidedishThumbImages().stream()
+                .mapToLong(value -> value.getImageId())
+                .boxed()
+                .collect(Collectors.toList());
+
+        List<Image> thumbImages = imageService.readImageBy(thumbImageIds);
 
         return DetailDTO.of(sidedish, topImage, thumbImages);
     }
