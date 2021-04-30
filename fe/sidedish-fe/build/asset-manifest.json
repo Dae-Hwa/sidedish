@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/static/css/main.210ce8c1.chunk.css",
+    "main.js": "/static/js/main.19ba1225.chunk.js",
+    "main.js.map": "/static/js/main.19ba1225.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.0dcd529e.js",
+    "runtime-main.js.map": "/static/js/runtime-main.0dcd529e.js.map",
+    "static/js/2.2ba9c09a.chunk.js": "/static/js/2.2ba9c09a.chunk.js",
+    "static/js/2.2ba9c09a.chunk.js.map": "/static/js/2.2ba9c09a.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.210ce8c1.chunk.css.map": "/static/css/main.210ce8c1.chunk.css.map",
+    "static/js/2.2ba9c09a.chunk.js.LICENSE.txt": "/static/js/2.2ba9c09a.chunk.js.LICENSE.txt",
+    "static/media/closebtn.e20279ac.svg": "/static/media/closebtn.e20279ac.svg",
+    "static/media/closebtn_hover.f0e5f5ef.svg": "/static/media/closebtn_hover.f0e5f5ef.svg",
+    "static/media/downbtn.41839657.svg": "/static/media/downbtn.41839657.svg",
+    "static/media/leftbtn.c0c5d229.svg": "/static/media/leftbtn.c0c5d229.svg",
+    "static/media/leftbtn_disabled.76b56c4e.svg": "/static/media/leftbtn_disabled.76b56c4e.svg",
+    "static/media/rightbtn.0d960eb8.svg": "/static/media/rightbtn.0d960eb8.svg",
+    "static/media/rightbtn_disabled.8b03cfda.svg": "/static/media/rightbtn_disabled.8b03cfda.svg",
+    "static/media/upbtn.7a222cc4.svg": "/static/media/upbtn.7a222cc4.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.0dcd529e.js",
+    "static/js/2.2ba9c09a.chunk.js",
+    "static/css/main.210ce8c1.chunk.css",
+    "static/js/main.19ba1225.chunk.js"
+  ]
+}
